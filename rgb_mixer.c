@@ -66,7 +66,11 @@ void slider_create(void)
     lv_obj_set_style_bg_color(p_slider_b, lv_palette_main(LV_PALETTE_BLUE), LV_PART_INDICATOR);
     lv_obj_set_style_bg_color(p_slider_b, lv_palette_main(LV_PALETTE_BLUE), LV_PART_KNOB);
 
-
+    // Create RGB rectangle mixer object
+    p_color_mixer = lv_obj_create(lv_scr_act());
+    lv_obj_set_size(p_color_mixer, lv_obj_get_width(lv_scr_act()) - 20, 50);
+    lv_obj_align(p_color_mixer, LV_ALIGN_BOTTOM_MID, 0, -15);
+    lv_obj_set_style_border_width(p_color_mixer, 5, LV_PART_MAIN);
 
     // Creating labels
 
