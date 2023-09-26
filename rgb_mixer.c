@@ -26,7 +26,8 @@
 /******************************************************************************
 * Module Preprocessor Constants
 *******************************************************************************/
-
+#define HEADING_Y_POS                       20
+#define SLIDE_START_Y_POS                   50
 
 /******************************************************************************
 * Module Preprocessor Macros
@@ -39,11 +40,20 @@
 /******************************************************************************
 * Module Variable Definitions
 *******************************************************************************/
+// Sliders
+lv_obj_t* p_slider_r = NULL;
+lv_obj_t* p_slider_g = NULL;
+lv_obj_t* p_slider_b = NULL;
+lv_obj_t* p_color_mixer = NULL;
 
+// Labels
+lv_obj_t* p_rgb_r_label = NULL;
+lv_obj_t* p_rgb_g_label = NULL;
+lv_obj_t* p_rgb_b_label = NULL;
 /******************************************************************************
 * Function Prototypes
 *******************************************************************************/
-
+void slider_evt_cb(struct _lv_event_t* e);
 /******************************************************************************
 * Function Definitions
 *******************************************************************************/
@@ -51,20 +61,24 @@ void slider_create(void)
 {
     lv_obj_t* p_act_screen = lv_scr_act();
 
-    lv_obj_t* p_slider_r = lv_slider_create(lv_scr_act());
-    lv_obj_align_to(p_slider_r, lv_scr_act(), LV_ALIGN_TOP_MID, 0, 10);
+    // Creating sliders
+    p_slider_r = lv_slider_create(lv_scr_act());
+    lv_obj_align_to(p_slider_r, lv_scr_act(), LV_ALIGN_TOP_MID, 0, SLIDE_START_Y_POS);
     lv_obj_set_style_bg_color(p_slider_r, lv_palette_main(LV_PALETTE_RED), LV_PART_INDICATOR);
     lv_obj_set_style_bg_color(p_slider_r, lv_palette_main(LV_PALETTE_RED), LV_PART_KNOB);
+    lv_slider_set_range(p_slider_r, 0, 255);
 
-    lv_obj_t* p_slider_g = lv_slider_create(lv_scr_act());
+    p_slider_g = lv_slider_create(lv_scr_act());
     lv_obj_align_to(p_slider_g, p_slider_r, LV_ALIGN_TOP_MID, 0, 50);
     lv_obj_set_style_bg_color(p_slider_g, lv_palette_main(LV_PALETTE_GREEN), LV_PART_INDICATOR);
     lv_obj_set_style_bg_color(p_slider_g, lv_palette_main(LV_PALETTE_GREEN), LV_PART_KNOB);
+    lv_slider_set_range(p_slider_g, 0, 255);
 
-    lv_obj_t* p_slider_b = lv_slider_create(lv_scr_act());
+    p_slider_b = lv_slider_create(lv_scr_act());
     lv_obj_align_to(p_slider_b, p_slider_g, LV_ALIGN_TOP_MID, 0, 50);
     lv_obj_set_style_bg_color(p_slider_b, lv_palette_main(LV_PALETTE_BLUE), LV_PART_INDICATOR);
     lv_obj_set_style_bg_color(p_slider_b, lv_palette_main(LV_PALETTE_BLUE), LV_PART_KNOB);
+    lv_slider_set_range(p_slider_b, 0, 255);
 
     // Create RGB rectangle mixer object
     p_color_mixer = lv_obj_create(lv_scr_act());
