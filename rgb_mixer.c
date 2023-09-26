@@ -85,4 +85,35 @@ void slider_create(void)
     p_rgb_b_label = lv_label_create(lv_scr_act());
     lv_label_set_text(p_rgb_b_label, "0");
     lv_obj_align_to(p_rgb_b_label, p_slider_b, LV_ALIGN_OUT_TOP_MID, 0, 0);
+
+    // Set callbacks
+    lv_obj_add_event(p_slider_r, &slider_evt_cb, LV_EVENT_VALUE_CHANGED, NULL);
+    lv_obj_add_event(p_slider_g, &slider_evt_cb, LV_EVENT_VALUE_CHANGED, NULL);
+    lv_obj_add_event(p_slider_b, &slider_evt_cb, LV_EVENT_VALUE_CHANGED, NULL);
+}
+
+void slider_evt_cb(struct _lv_event_t* e)
+{
+    lv_obj_t* event_source = lv_event_get_target(e);
+    static uint32_t r = 0, g = 0, b = 0;
+    if (event_source == p_slider_r)
+    {
+        r = lv_slider_get_value(event_source);
+        lv_label_set_text_fmt(p_rgb_r_label, "%d", r);
+    }
+    else if (event_source == p_slider_g)
+    {
+        g = lv_slider_get_value(event_source);
+        lv_label_set_text_fmt(p_rgb_g_label, "%d", g);
+    }
+    else if (event_source == p_slider_b)
+    {
+        b = lv_slider_get_value(event_source);
+        lv_label_set_text_fmt(p_rgb_b_label, "%d", b);
+    }
+    else
+    {
+
+    }
+    lv_obj_set_style_bg_color(p_color_mixer, lv_color_make(r, g, b), LV_PART_MAIN);
 }
